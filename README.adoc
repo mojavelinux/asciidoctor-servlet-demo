@@ -1,0 +1,58 @@
+= Asciidoctor Servlet Demo
+Dan Allen <@mojavelinux>
+:imagesdir: screenshots
+
+This project demonstrates the use of the https://github.com/asciidoctor/asciidoctor-java-integration[Asciidoctor Java integration] library in a Servlet.
+The integration is bootstrapped and configured in an application-scoped CDI bean.
+The Servlet then invokes that bean to render the AsciiDoc source submitted from a web form.
+
+All of the functionality is tested by http://arquillian.org[Arquillian].
+
+== Screenshot
+
+image::asciidoctor-servlet-form.png[Screenshot of the Asciidoctor Servlet demo]
+
+== Running the application
+
+. Import the project into your IDE
+. Run the project on a Java EE 6 server (e.g., GlassFish 3.1.2)
+. Visit http://localhost:8080/asciidoctor-servlet/asciidoctor
+. Submit the form to see the HTML Asciidoctor generates from the AsciiDoc source
+
+WARNING: At the moment, the Asciidoctor Java integration does not work in some modular environments, such as Wildfly (i.e., JBoss AS 7).
+The Asciidoctor team is exploring this issue and will update these instructions once a solution is found.
+
+image::asciidoctor-servlet-result.png[Screenshot of the AsciiDoc source rendered as HTML]
+
+== Running the tests
+
+The tests are configured to run in GlassFish.
+If there is a GlassFish server already running, Arquillian will use that one.
+Otherwise, you need to specify the path to your GlassFish installation in [path]'src/main/resources/arquillian.xml'
+
+TIP: If your GlassFish installation is located at [path]'${user.home}/opt/glassfish', no configuration is required.
+
+Once GlassFish is ready to go, simply run the tests using the normal Maven test goal:
+
+ $ mvn test
+
+There tests are run:
+
+link:src/test/java/org/asciidoctor/test/bean/AsciidoctorProcessorInContainerTest.java[AsciidoctorProcessorInContainerTest]::
+  An in-container Arquillian test that tests the +AsciidoctorProcessor+ CDI bean
+
+link:src/test/java/org/asciidoctor/test/servlet/AsciidoctorServletDroneTest.java[AsciidoctorServletDroneTest]::
+  A WebDriver test, orchestrated by Arquillian Drone, that tests the web UI using Firefox
+
+link:src/test/java/org/asciidoctor/test/servlet/AsciidoctorServletWarpTest.java[AsciidoctorServletWarpTest]::
+  An Arquillian Warp test that tests the web UI and Servlet simultaneously
+
+[NOTE]
+====
+You may notice that the tests run quite slowly.
+That delay is due to the fact that JRuby has to bootstrap for each new deployment.
+
+You can make JRuby boot quicker by setting the +JRUBY_OPTS+ environment variable, as shown below, in the terminal where you start GlassFish.
+
+ $ export JRUBY_OPTS="-client -J-Xverify:none -J-XX:+TieredCompilation -J-XX:TieredStopAtLevel=1"
+====

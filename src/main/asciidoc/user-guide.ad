@@ -1,0 +1,17 @@
+= User Guide
+Doc Writer <doc.writer@example.com>
+
+This is a user guide for the Asciidoctor Servlet demo.
+
+== Introduction
+
+This project provides a test playground for AsciiDoc.
+It's powered by http://asciidoctor.org[Asciidoctor] and the http://github.com/asciidoctor/asciidoctor-java-integration[Asciidoctor Java integration] library.
+
+[source, java]
+.Source code from project
+----
+include::../java/org/asciidoctor/bean/AsciidoctorProcessor.java[tags=render]
+----
+
+That's all for now!
