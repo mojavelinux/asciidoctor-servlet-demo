@@ -37,11 +37,12 @@ public class AsciidoctorServletDroneTest {
 				.artifacts("org.asciidoctor:asciidoctor-java-integration")
 				.exclusion("rubygems:*").resolveAsFiles();
 		
-		return ShrinkWrap.create(WebArchive.class, "test.war")
+		return ShrinkWrap.create(WebArchive.class)
 				.addClass(AsciidoctorServlet.class)
 				.addClass(AsciidoctorProcessor.class)
 				.addAsLibraries(deps)
 				.addAsWebResource(new File("src/main/webapp/asciidoctor.css"), "asciidoctor.css")
+				.addAsWebResource(new File("src/main/webapp/index.html"), "index.html")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
