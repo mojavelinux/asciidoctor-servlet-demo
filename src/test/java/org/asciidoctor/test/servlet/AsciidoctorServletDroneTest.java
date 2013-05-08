@@ -48,7 +48,7 @@ public class AsciidoctorServletDroneTest {
 
 	@Test
 	public void testViewInputForm() throws MalformedURLException {
-		browser.navigate().to(deploymentUrl + "asciidoctor");
+		browser.navigate().to(deploymentUrl + "epic-asciidoctor");
 		WebElement textarea = browser.findElement(By.cssSelector("textarea"));
 		textarea.sendKeys("= AsciiDoc Invasion!\n\nIke has invaded AsciiDoc.");
 		browser.findElement(By.name("submit"));
@@ -56,7 +56,7 @@ public class AsciidoctorServletDroneTest {
 
 	@Test
 	public void testCanRenderAsciiDoc() throws MalformedURLException {
-		browser.navigate().to(deploymentUrl + "asciidoctor");
+		browser.navigate().to(deploymentUrl + "epic-asciidoctor");
 		WebElement textarea = browser.findElement(By.cssSelector("textarea"));
 		textarea.sendKeys("= AsciiDoc Invasion!\n\nIke has invaded AsciiDoc.");
 		WebElement submit = browser.findElement(By.name("submit"));

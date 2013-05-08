@@ -4,7 +4,7 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.asciidoctor.servlet</groupId>
-	<artifactId>asciidoctor-servlet</artifactId>
+	<artifactId>epic-asciidoctor-servlet-demo</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<properties>
@@ -158,7 +158,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>asciidoctor-servlet</finalName>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
