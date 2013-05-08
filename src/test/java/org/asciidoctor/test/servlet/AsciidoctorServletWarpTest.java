@@ -55,12 +55,13 @@ public class AsciidoctorServletWarpTest {
 				.addClass(RequestHolderFilter.class)
 				.addAsLibraries(deps)
 				.addAsWebResource(new File("src/main/webapp/asciidoctor.css"), "asciidoctor.css")
+				.addAsWebResource(new File("src/main/webapp/index.html"), "index.html")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@Test @RunAsClient
 	public void testCanRenderAsciiDoc() throws MalformedURLException {
-		browser.navigate().to(deploymentUrl + "asciidoctor");
+		browser.navigate().to(deploymentUrl + "epic-asciidoctor");
 		WebElement textarea = browser.findElement(By.cssSelector("textarea"));
 		textarea.sendKeys("= AsciiDoc Invasion!\n:linkcss!:\n\nIke has invaded AsciiDoc.");
 		

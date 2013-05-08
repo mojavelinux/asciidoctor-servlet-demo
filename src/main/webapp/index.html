@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/epiceditor/0.2.0/js/epiceditor.min.js"></script>
+  <style type="text/css">
+	#epiceditor {
+		width:100%;
+		height: 700px;
+	}
+  </style>
+</head>
+<body>
+  <h1>AsciiDoc Tester powered by Asciidoctor</h1>
+  <div id="epiceditor"></div>
+  <script>
+    var submit = function(markupData) {
+      var rendered;
+      jQuery.ajax('epic-asciidoctor', {
+        async: false,
+        type: 'POST',
+        processData: false,
+        contentType:'text/plain',
+        dataType: 'text',
+        data: markupData
+      }).done(function(response) {
+        rendered = response
+      })
+      return rendered
+    }
+    var opts = {
+      basePath: '//cdnjs.cloudflare.com/ajax/libs/epiceditor/0.2.0',
+      shortcut: {
+        modifier: 18,
+        fullscreen: 70,
+        preview: 80
+      },
+      parser: submit
+    }
+    var editor = new EpicEditor(opts).load();
+  </script>
+</body>
+</html>
