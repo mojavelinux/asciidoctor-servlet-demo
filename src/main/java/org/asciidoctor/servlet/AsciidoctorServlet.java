@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.asciidoctor.bean.AsciidoctorProcessor;
 
-@WebServlet(name = "asciidoctor", urlPatterns = "/asciidoctor")
+@WebServlet(name = "AsciiDoc Tester", urlPatterns = "/asciidoctor")
 public class AsciidoctorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

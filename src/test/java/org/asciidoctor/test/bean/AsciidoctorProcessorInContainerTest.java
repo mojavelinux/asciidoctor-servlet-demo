@@ -34,7 +34,7 @@ public class AsciidoctorProcessorInContainerTest {
 				.addClass(AsciidoctorServlet.class)
 				.addClass(AsciidoctorProcessor.class).addAsLibraries(deps)
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-		//System.out.println(war.toString(true));
+		System.out.println(war.toString(true));
 		return war;
 	}
 
