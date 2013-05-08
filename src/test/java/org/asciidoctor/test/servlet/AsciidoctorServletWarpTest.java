@@ -61,7 +61,7 @@ public class AsciidoctorServletWarpTest {
 
 	@Test @RunAsClient
 	public void testCanRenderAsciiDoc() throws MalformedURLException {
-		browser.navigate().to(deploymentUrl + "asciidoctor");
+		browser.navigate().to(deploymentUrl + "epic-asciidoctor");
 		WebElement textarea = browser.findElement(By.cssSelector("textarea"));
 		textarea.sendKeys("= AsciiDoc Invasion!\n:linkcss!:\n\nIke has invaded AsciiDoc.");
 		
