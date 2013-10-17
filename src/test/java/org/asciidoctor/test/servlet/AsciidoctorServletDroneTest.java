@@ -23,44 +23,44 @@ import org.openqa.selenium.WebElement;
 
 @RunWith(Arquillian.class)
 public class AsciidoctorServletDroneTest {
-	@Drone
-	WebDriver browser;
-	
-	@ArquillianResource
-	URL deploymentUrl;
-	
-	@Deployment(testable = false)
-	public static WebArchive createDeployment() {
-		MavenDependencyResolver resolver = DependencyResolvers
-				.use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");
-		File[] deps = resolver
-				.artifacts("org.asciidoctor:asciidoctor-java-integration")
-				.exclusion("com.beust:jcommander:*")
-				.resolveAsFiles();
-		
-		return ShrinkWrap.create(WebArchive.class, "test.war")
-				.addClass(AsciidoctorServlet.class)
-				.addClass(AsciidoctorProcessor.class)
-				.addAsLibraries(deps)
-				.addAsWebResource(new File("src/main/webapp/asciidoctor.css"), "asciidoctor.css")
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+    @Drone
+    WebDriver browser;
+    
+    @ArquillianResource
+    URL deploymentUrl;
+    
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+        MavenDependencyResolver resolver = DependencyResolvers
+                .use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");
+        File[] deps = resolver
+                .artifacts("org.asciidoctor:asciidoctor-java-integration")
+                .exclusion("com.beust:jcommander:*")
+                .resolveAsFiles();
+        
+        return ShrinkWrap.create(WebArchive.class, "test.war")
+                .addClass(AsciidoctorServlet.class)
+                .addClass(AsciidoctorProcessor.class)
+                .addAsLibraries(deps)
+                .addAsWebResource(new File("src/main/webapp/asciidoctor.css"), "asciidoctor.css")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-	@Test
-	public void testViewInputForm() throws MalformedURLException {
-		browser.navigate().to(deploymentUrl + "asciidoctor");
-		WebElement textarea = browser.findElement(By.cssSelector("textarea"));
-		textarea.sendKeys("= AsciiDoc Invasion!\n\nIke has invaded AsciiDoc.");
-		browser.findElement(By.name("submit"));
-	}
+    @Test
+    public void testViewInputForm() throws MalformedURLException {
+        browser.navigate().to(deploymentUrl + "asciidoctor");
+        WebElement textarea = browser.findElement(By.cssSelector("textarea"));
+        textarea.sendKeys("= AsciiDoc Invasion!\n\nIke has invaded AsciiDoc.");
+        browser.findElement(By.name("submit"));
+    }
 
-	@Test
-	public void testCanRenderAsciiDoc() throws MalformedURLException {
-		browser.navigate().to(deploymentUrl + "asciidoctor");
-		WebElement textarea = browser.findElement(By.cssSelector("textarea"));
-		textarea.sendKeys("= AsciiDoc Invasion!\n\nIke has invaded AsciiDoc.");
-		WebElement submit = browser.findElement(By.name("submit"));
-		submit.click();
-		browser.findElement(By.id("header"));
-	}
+    @Test
+    public void testCanRenderAsciiDoc() throws MalformedURLException {
+        browser.navigate().to(deploymentUrl + "asciidoctor");
+        WebElement textarea = browser.findElement(By.cssSelector("textarea"));
+        textarea.sendKeys("= AsciiDoc Invasion!\n\nIke has invaded AsciiDoc.");
+        WebElement submit = browser.findElement(By.name("submit"));
+        submit.click();
+        browser.findElement(By.id("header"));
+    }
 }

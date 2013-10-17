@@ -13,29 +13,29 @@ import javax.servlet.http.HttpServletRequest;
 
 @WebFilter(urlPatterns = "/*")
 public class RequestHolderFilter implements Filter {
-	public static final ThreadLocal<HttpServletRequest> REQUEST_INSTANCE = new ThreadLocal<HttpServletRequest>();
+    public static final ThreadLocal<HttpServletRequest> REQUEST_INSTANCE = new ThreadLocal<HttpServletRequest>();
 
-	@Override
-	public void init(final FilterConfig filterConfig) throws ServletException {
-	}
+    @Override
+    public void init(final FilterConfig filterConfig) throws ServletException {
+    }
 
-	@Override
-	public void doFilter(final ServletRequest request,
-			final ServletResponse response, final FilterChain chain)
-			throws IOException, ServletException {
-		REQUEST_INSTANCE.set((HttpServletRequest) request);
-		try {
-			chain.doFilter(request, response);
-		} finally {
-			REQUEST_INSTANCE.remove();
-		}
-	}
+    @Override
+    public void doFilter(final ServletRequest request,
+            final ServletResponse response, final FilterChain chain)
+            throws IOException, ServletException {
+        REQUEST_INSTANCE.set((HttpServletRequest) request);
+        try {
+            chain.doFilter(request, response);
+        } finally {
+            REQUEST_INSTANCE.remove();
+        }
+    }
 
-	@Override
-	public void destroy() {
-	}
-	
-	public static HttpServletRequest currentInstance() {
-		return REQUEST_INSTANCE.get();
-	}
+    @Override
+    public void destroy() {
+    }
+    
+    public static HttpServletRequest currentInstance() {
+        return REQUEST_INSTANCE.get();
+    }
 }

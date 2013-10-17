@@ -35,36 +35,36 @@ import org.openqa.selenium.WebElement;
 @WarpTest
 @RunWith(Arquillian.class)
 public class AsciidoctorServletWarpTest {
-	@Drone
-	WebDriver browser;
-	
-	@ArquillianResource
-	URL deploymentUrl;
-	
-	@Deployment
-	public static WebArchive createDeployment() {
-		MavenDependencyResolver resolver = DependencyResolvers
-				.use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");
-		File[] deps = resolver
-				.artifacts("org.asciidoctor:asciidoctor-java-integration")
-				.exclusion("com.beust:jcommander:*")
-				.resolveAsFiles();
-		
-		return ShrinkWrap.create(WebArchive.class, "test.war")
-				.addClass(AsciidoctorServlet.class)
-				.addClass(AsciidoctorProcessor.class)
-				.addClass(RequestHolderFilter.class)
-				.addAsLibraries(deps)
-				.addAsWebResource(new File("src/main/webapp/asciidoctor.css"), "asciidoctor.css")
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+    @Drone
+    WebDriver browser;
+    
+    @ArquillianResource
+    URL deploymentUrl;
+    
+    @Deployment
+    public static WebArchive createDeployment() {
+        MavenDependencyResolver resolver = DependencyResolvers
+                .use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");
+        File[] deps = resolver
+                .artifacts("org.asciidoctor:asciidoctor-java-integration")
+                .exclusion("com.beust:jcommander:*")
+                .resolveAsFiles();
+        
+        return ShrinkWrap.create(WebArchive.class, "test.war")
+                .addClass(AsciidoctorServlet.class)
+                .addClass(AsciidoctorProcessor.class)
+                .addClass(RequestHolderFilter.class)
+                .addAsLibraries(deps)
+                .addAsWebResource(new File("src/main/webapp/asciidoctor.css"), "asciidoctor.css")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-	@Test @RunAsClient
-	public void testCanRenderAsciiDoc() throws MalformedURLException {
-		browser.navigate().to(deploymentUrl + "asciidoctor");
-		WebElement textarea = browser.findElement(By.cssSelector("textarea"));
-		textarea.sendKeys("= AsciiDoc Invasion!\n:linkcss!:\n\nIke has invaded AsciiDoc.");
-		
+    @Test @RunAsClient
+    public void testCanRenderAsciiDoc() throws MalformedURLException {
+        browser.navigate().to(deploymentUrl + "asciidoctor");
+        WebElement textarea = browser.findElement(By.cssSelector("textarea"));
+        textarea.sendKeys("= AsciiDoc Invasion!\n:linkcss!:\n\nIke has invaded AsciiDoc.");
+        
         Warp.initiate(new Activity() {
             @Override
             public void perform() {
@@ -72,25 +72,25 @@ public class AsciidoctorServletWarpTest {
             }
         }).inspect(new VerifyResult());
 
-		
-		browser.findElement(By.id("header"));
-	}
-	
-	public static class VerifyResult extends Inspection {
+        
+        browser.findElement(By.id("header"));
+    }
+    
+    public static class VerifyResult extends Inspection {
 
-		private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
 
-		@Inject
-		AsciidoctorProcessor processor;
-		
-		@AfterServlet
-		public void wasCalled() {
-			HttpServletRequest request = RequestHolderFilter.currentInstance();
-			Object result = request.getAttribute("result");
-			Assert.assertNotNull(result);
-			Assert.assertNotNull(processor);
-			Assert.assertNotNull(processor.getDelegate());
-			//System.out.println(result);
-		}
-	}
+        @Inject
+        AsciidoctorProcessor processor;
+        
+        @AfterServlet
+        public void wasCalled() {
+            HttpServletRequest request = RequestHolderFilter.currentInstance();
+            Object result = request.getAttribute("result");
+            Assert.assertNotNull(result);
+            Assert.assertNotNull(processor);
+            Assert.assertNotNull(processor.getDelegate());
+            //System.out.println(result);
+        }
+    }
 }

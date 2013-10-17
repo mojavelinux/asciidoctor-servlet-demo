@@ -10,30 +10,30 @@ import org.asciidoctor.SafeMode;
 
 @ApplicationScoped
 public class AsciidoctorProcessor {
-	private Asciidoctor delegate;
-	
+    private Asciidoctor delegate;
+    
     // tag::render[]
-	public String renderAsDocument(String source, String baseDir) {
-		return delegate.render(source, OptionsBuilder.options()
-				.safe(SafeMode.SAFE)
-				.backend("html5")
-				.headerFooter(true)
-				.eruby("erubis")
-				.option("base_dir", baseDir)
-				.attributes(AttributesBuilder.attributes()
-						.linkCss(true)
-						.copyCss(false)
-						.get())
-				.get());
-	}
+    public String renderAsDocument(String source, String baseDir) {
+        return delegate.render(source, OptionsBuilder.options()
+                .safe(SafeMode.SAFE)
+                .backend("html5")
+                .headerFooter(true)
+                .eruby("erubis")
+                .option("base_dir", baseDir)
+                .attributes(AttributesBuilder.attributes()
+                        .linkCss(true)
+                        .copyCss(false)
+                        .get())
+                .get());
+    }
     // end::render[]
-	
-	public Asciidoctor getDelegate() {
-		return delegate;
-	}
-	
-	@PostConstruct
-	public void init() {
-		delegate = Asciidoctor.Factory.create();
-	}
+    
+    public Asciidoctor getDelegate() {
+        return delegate;
+    }
+    
+    @PostConstruct
+    public void init() {
+        delegate = Asciidoctor.Factory.create();
+    }
 }
