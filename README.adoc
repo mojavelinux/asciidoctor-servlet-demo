@@ -14,6 +14,7 @@ image::asciidoctor-servlet-form.png[Screenshot of the Asciidoctor Servlet demo]
 
 == Running the application
 
+=== Java EE 6 server
 . Import the project into your IDE
 . Run the project on a Java EE 6 server (e.g., GlassFish 3.1.2)
 . Visit http://localhost:8080/asciidoctor-servlet/asciidoctor
@@ -21,6 +22,14 @@ image::asciidoctor-servlet-form.png[Screenshot of the Asciidoctor Servlet demo]
 
 WARNING: At the moment, the Asciidoctor Java integration does not work in some modular environments, such as Wildfly (i.e., JBoss AS 7).
 The Asciidoctor team is exploring this issue and will update these instructions once a solution is found.
+
+=== Tomcat 7
+You can also deploy demo to Tomcat 7 server.
+
+. Start your Tomcat server
+. Run _mvn clean install tomcat7:deploy -Ptomcat_
+. Visit http://localhost:8080/asciidoctor-servlet/asciidoctor
+. Submit the form to see the HTML Asciidoctor generates from the AsciiDoc source
 
 image::asciidoctor-servlet-result.png[Screenshot of the AsciiDoc source rendered as HTML]
 
