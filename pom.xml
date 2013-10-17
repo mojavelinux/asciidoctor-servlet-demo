@@ -13,6 +13,8 @@
 		<version.arquillian_core>1.0.3.Final</version.arquillian_core>
 		<version.arquillian_drone>1.2.0.Alpha2</version.arquillian_drone>
 		<version.arquillian_warp>1.0.0.Alpha2</version.arquillian_warp>
+		<vesion.wicket_servlet>1.1.5.Final</vesion.wicket_servlet>
+		<vesion.tomcat-maven-plugin>2.0</vesion.tomcat-maven-plugin>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -297,5 +299,48 @@
 				</dependency>
 			</dependencies>
 		</profile>
+	<profile>
+		<id>tomcat</id>
+		<dependencies>
+			<dependency>
+				<groupId>org.jboss.weld.servlet</groupId>
+				<artifactId>weld-servlet</artifactId>
+				<version>${vesion.wicket_servlet}</version>
+				<scope>runtime</scope>
+			</dependency>
+	</dependencies>
+		<build>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<webXml>src/main/alternatives/tomcat/WEB-INF/web.xml</webXml>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.16</version>
+					<configuration>
+						<skipTests>true</skipTests>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>${vesion.tomcat-maven-plugin}</version>
+					<configuration>
+						<url>http://localhost:8080/manager/text</url>
+						<port>8080</port>
+						<path>/${project.artifactId}</path>
+						<update>true</update>
+						<systemProperties>
+						</systemProperties>
+					</configuration>
+				</plugin>
+			</plugins>
+		</build>
+	</profile>
 	</profiles>
 </project>
