@@ -15,11 +15,16 @@ public class AsciidoctorProcessor {
     // tag::render[]
 	public String renderAsDocument(String source, String baseDir) {
 		return delegate.render(source, OptionsBuilder.options()
-				.safe(SafeMode.SAFE).backend("html5").headerFooter(true).eruby("erubis")
+				.safe(SafeMode.SAFE)
+				.backend("html5")
+				.headerFooter(true)
+				.eruby("erubis")
 				.option("base_dir", baseDir)
 				.attributes(AttributesBuilder.attributes()
-						.attribute("icons!", "")
-						.attribute("copycss!", "").asMap()).asMap());
+						.linkCss(true)
+						.copyCss(false)
+						.get())
+				.get());
 	}
     // end::render[]
 	

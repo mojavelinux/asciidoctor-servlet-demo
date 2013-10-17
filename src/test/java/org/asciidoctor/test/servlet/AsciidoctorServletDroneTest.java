@@ -35,7 +35,8 @@ public class AsciidoctorServletDroneTest {
 				.use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");
 		File[] deps = resolver
 				.artifacts("org.asciidoctor:asciidoctor-java-integration")
-				.exclusion("rubygems:*").resolveAsFiles();
+				.exclusion("com.beust:jcommander:*")
+				.resolveAsFiles();
 		
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addClass(AsciidoctorServlet.class)

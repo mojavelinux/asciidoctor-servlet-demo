@@ -32,7 +32,7 @@ public class AsciidoctorServlet extends HttpServlet {
 		writer.write("<form method=\"post\">\n");
 		writer.write("<textarea name=\"source\" style=\"width: 600px; height: 400px; display: block;\">");
 		writer.write(readFromStream(request.getServletContext()
-				.getResourceAsStream("/WEB-INF/sample.ad")));
+				.getResourceAsStream("/WEB-INF/sample.adoc")));
 		writer.write("</textarea>\n");
 		writer.write("<input type=\"submit\" name=\"submit\" value=\"Render\">\n");
 		writer.write("</form>\n");
