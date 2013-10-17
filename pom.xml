@@ -13,7 +13,7 @@
 		<version.arquillian_core>1.0.3.Final</version.arquillian_core>
 		<version.arquillian_drone>1.2.0.Alpha2</version.arquillian_drone>
 		<version.arquillian_warp>1.0.0.Alpha2</version.arquillian_warp>
-		<vesion.wicket_servlet>1.1.5.Final</vesion.wicket_servlet>
+		<vesion.weld_servlet>1.1.5.Final</vesion.weld_servlet>
 		<vesion.tomcat-maven-plugin>2.0</vesion.tomcat-maven-plugin>
 	</properties>
 	<dependencyManagement>
@@ -305,7 +305,7 @@
 			<dependency>
 				<groupId>org.jboss.weld.servlet</groupId>
 				<artifactId>weld-servlet</artifactId>
-				<version>${vesion.wicket_servlet}</version>
+				<version>${vesion.weld_servlet}</version>
 				<scope>runtime</scope>
 			</dependency>
 	</dependencies>
